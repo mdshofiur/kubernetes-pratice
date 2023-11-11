@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+   name: backend-ingress
+   annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /
+   labels:
+      app: backend
+spec:
+   ingressClassName: nginx
+   rules:
+      - host: localhost # This allows access via localhost
+        http:
+           paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                   service:
+                      name: backend-service
+                      port:
+                         number: 80
